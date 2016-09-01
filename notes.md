@@ -1,6 +1,7 @@
 ## Intro
 
-- Wombat by Erland Solutions
+- 542 attendees
+- [Wombat](https://www.erlang-solutions.com/products/wombat-oam.html) by Erland Solutions
 
 ## Keynote Chris McCord
 
