@@ -40,3 +40,6 @@
 - Should not be doing hot upgrades with Docker containers. Should instead deploy to a different containers.
 - Because you have hot upgrades you could be tempted not to use docker containers but the rest of your infrastructure could benefit from containerized architecture and so you should see the pros/cons of both approaches. Hot upgrades might be more trouble than they're worth.
 
+## The Ghost of Object-Oriented programming
+
+- Hugo's feedback: WAY too beginner. Not worth watching.
