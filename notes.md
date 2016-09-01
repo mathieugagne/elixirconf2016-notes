@@ -102,3 +102,15 @@
 - Author wrote the Swift Websocket Client library
 - Goes through introduction to Swift, to Phoenix and how to join the 2 with websockets.
 - Unfortunately not very useful for work but the other talks weren't either.
+
+## Measuring your Elixir Application by Renan Ranelli
+
+- First half is about the "why" you should measure. Dah.
+- Explaination of histograms, 95th percentile, etc.
+- Using InfluxDB & Grafana!!
+- Also using collectd as a influxdb plugin
+- [`exometer` & `elixometer`](https://github.com/pinterest/elixometer)
+- [Step by step demo](http://milhouseonsoftware.com/2016/05/08/measuring-your-elixir-application/)
+- Nice trick: `sliently() { "$@" | /dev/null &1>2 }` # or something similar
+  - e.g. `silently spawn_process &`
+- [InfluxDB Kapacitor](https://influxdata.com/time-series-platform/kapacitor/) for alerting anomalies
