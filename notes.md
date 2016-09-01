@@ -89,3 +89,16 @@
   - [`HTTPoison`](https://github.com/edgurgel/httpoison)
 - Feed work, don't read work
 - Start with an umbrella app
+
+## Phoenix Beyond the Browser - Realtime Applications with Phoenix and Swift by David Stump
+
+- Why Phoenix?
+  - Fast response time
+  - fault tolerant
+  - concurrent
+  - scalable
+  - maintainable
+  - Phoenix Channels (WebSockets)
+- Author wrote the Swift Websocket Client library
+- Goes through introduction to Swift, to Phoenix and how to join the 2 with websockets.
+- Unfortunately not very useful for work but the other talks weren't either.
