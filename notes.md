@@ -43,3 +43,48 @@
 ## The Ghost of Object-Oriented programming
 
 - Hugo's feedback: WAY too beginner. Not worth watching.
+
+## Selling Food With Elixir by Chris Bell
+
+- Application design & stories from production
+- In Rails we would have used an Order model with Sidekiq for job processing
+  - All state lives in the database, including any background processes.
+  - Could do the same thing in Phoenix with `verk` and an Order model
+- Elixir design principles
+  1. Phoenix is not your application. (see changes in 1.3) It's just a web interface, not your system.
+  2. Embrace state outside of the database. You can store state in your processes too.
+  3. If it's concurrent, extract it into an OTP application. What would have been a Sidekiq job can be a different process.
+  4. (Don't just) Let it crash. Handle known/expected failures.
+
+#### Design
+- Order Scheduler
+  - Queues orders to send to store delivering orders 15 minutes before the timeslot.
+  - Using `send_after` to recursively send a message until it's ready to process.
+  - [`gen_retry`](https://github.com/appcues/gen_retry)
+- Task Supervisor
+  - `GenServer#terminate` allows you to do something before the process goes away.
+- Store Availability
+  - Track the capacity for a given store
+  - Problem: high demand for timeslots during the lunch rush
+  - Using the database would require too many calls. It'd be expensive because too frequent.
+  - Using [ETS](http://erlang.org/doc/man/ets.html) (redis for erlang) Erlang Term Storage
+    - Keeps availability slots per timeslots in ETS
+    - `:ets.tab2list` to retrieve data
+    - `:ets.update_counter` to update data
+  - To hold a timeslot temporarily while the client fills in his order:
+    - Create a process
+    - Monitor the process (giving a ref)
+    - `Process.send_after` will kill the process
+    - When the process terminates, we listen to the "down" event.
+    - The callback tells the `StoreManager` to remove the timeslot.
+  - On boot, since ets doesn't persist after the process dies, we read from the database to recreate the ets table.
+  - [`immortal`](https://github.com/danielberkompas/immortal)
+
+#### Lessons
+- Name your processes if you only want one per node. Otherwise you could duplicate things.
+- Understand the process design and the bottlenecks of the libraries you're using
+  - [`poison`](https://github.com/devinus/poison)
+  - [`HTTPotion`](https://github.com/myfreeweb/httpotion)
+  - [`HTTPoison`](https://github.com/edgurgel/httpoison)
+- Feed work, don't read work
+- Start with an umbrella app
