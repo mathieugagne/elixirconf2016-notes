@@ -114,3 +114,14 @@
 - Nice trick: `sliently() { "$@" | /dev/null &1>2 }` # or something similar
   - e.g. `silently spawn_process &`
 - [InfluxDB Kapacitor](https://influxdata.com/time-series-platform/kapacitor/) for alerting anomalies
+- [Another blog post on gathering metrics](http://tech.footballaddicts.com/blog/gathering-metrics-in-elixir-applications)
+
+## Lightning Talks
+
+- [elixirstatus.com](http://elixirstatus.com/)
+- [elixirweekly.net](https://elixirweekly.net/)
+- [authy](https://github.com/schrockwell/authy) equivalent to `pundit` in elixir
+- [12 years of progress](https://twitter.com/sstephenson/status/730039913052176384)
+- [elm](http://elm-lang.org/)
+- [Chaos Monkey](https://github.com/Netflix/SimianArmy/wiki/Chaos-Monkey)
+- [principlesofchaos.org](http://principlesofchaos.org/)
