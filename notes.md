@@ -16,3 +16,7 @@
 - Web/static => root assets folder
 - Service discovery accidentally made with Presence
 
+## A tale of keys and values | Abstractions by Ernie Miller
+
+- A choose your own adventure talk proposal
+- Walkthrough history of light, photons, light waves, Schrodinger, etc.
