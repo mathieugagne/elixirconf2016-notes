@@ -1,5 +1,14 @@
 # ElixirConf 2016
 
+## TO WATCH:
+
+- String Theory
+- Building umbrella project
+- Debugging techniques in Elixir
+- No REST for the wicked: Building a GraphQL API
+- Building Available and Partition Tolerant Systems with Phoenix Tracker.
+- Collaborative Music with Elm and Phoenix
+
 ## Intro
 
 - 542 attendees
