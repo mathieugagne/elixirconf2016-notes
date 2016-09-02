@@ -201,3 +201,45 @@
   - Use `Ecto.Multi`
 - Phoenix
   - Same optimization as in Rails with `get_user` `before_action` callback instead using `plug`
+
+## Leveling Up with Ecto by Darin Wilson
+
+- [Code example](https://github.com/darinwilson/music_db)
+- [Slides](https://dl.dropboxusercontent.com/u/14884175/leveling_up_with_ecto.pdf)
+- [documentation](https://hexdocs.pm/ecto/Ecto.html)
+- Ecto is a toolset (not an ORM) for interacting with external datasources
+- The Big 4: Repo, Query, Schema, Changeset
+- Repo in Phoenix is not Ecto.Repo but MyApp.Repo
+  - Which means you can add your own custom functions in Repo
+  - all, insert_all, update_all, delete_all are default
+- Query
+  - DSL that resembles SQL
+  - Composable
+  - Have to be explicit with `select`
+  - Have to correctly cast the types (without schema)
+- Schema
+  - Defined in your 'models'
+  - Not that good when building queries for reporting
+  - Really useful for associated records ('has_many')
+  - Ecto won't fetch associated records unless you ask it to.
+    - you can use `preload: [<assoc>]` or
+    - ```
+      Artist
+      |> Repo.get(1)
+      |> Repo.preload(:albums)
+      ```
+- Changeset
+  - `Repo.insert(changeset)`
+  - Ships with validations
+  - Constraints: same as validations, but verify at the DB level
+    - e.g. `unique_constraint`
+    - Useful to avoid rescuing errors from the DB and expecting certain behavios
+    - Loads errors just like validations
+  - Doesn't have to be bound with Schema. You can create a schemaless changeset.
+- Phoenix Integration
+  - `phoenix_ecto` provides the glue between the 2
+  - `form_for` uses ChangeSet
+  - Works great when you have a 1 to 1 to 1 between forms, database structure and UI
+  - Using `Changeset.get_field` and `.put_change` you can decouple UI and DB
+  - Schema don't need associatied database tables with `embedded_schema`. More [here](http://blog.plataformatec.com.br/2016/05/ectos-insert_all-and-schemaless-queries/)
+- There is no one good way to do something with Ecto => Flexibility
