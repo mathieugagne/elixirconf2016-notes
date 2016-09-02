@@ -8,6 +8,7 @@
 - No REST for the wicked: Building a GraphQL API
 - Building Available and Partition Tolerant Systems with Phoenix Tracker.
 - Collaborative Music with Elm and Phoenix
+- Nerves + Phoenix Saves a Father's Sanity!
 
 ## Intro
 
@@ -243,3 +244,13 @@
   - Using `Changeset.get_field` and `.put_change` you can decouple UI and DB
   - Schema don't need associatied database tables with `embedded_schema`. More [here](http://blog.plataformatec.com.br/2016/05/ectos-insert_all-and-schemaless-queries/)
 - There is no one good way to do something with Ecto => Flexibility
+
+## Concurrent Feature Testing with Wallaby by Chris Keathley
+
+- Manages multiple browsers, concurrent, assumes async interfaces
+- Sessions
+  - Test -> Wallaby -> [Browsers] -> Phoenix -> Ecto
+  - Wallaby gives a pool of browsers for you to requests
+  - So your test talks to the browser directly after
+  - Your session is setup with Phoenix to be isolated with ownership of transactions all the way to Ecto.
+- Queries & Interactions are pretty much the same as Capybara
