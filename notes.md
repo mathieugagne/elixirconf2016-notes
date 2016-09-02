@@ -173,3 +173,22 @@
   - See [Flow.Window documentation](https://hexdocs.pm/gen_stage/Experimental.Flow.Window.html)
 - Configurable batch size (max & min demand)
 - No distribution nor execution guarantees
+
+## What is refactoring? by Gary Rennie
+
+- Refactoring a TicTacToe game
+- [Example online](https://github.com/Gazler/oxo)
+- Elixir
+  - Technique: if/cond to pattern matching
+  - Technique: case to function
+  - Technique: callback code to functions
+  - Technique: case to pipeline
+    - Each function in the pipeline now has to return the same structure for `|>` to work
+  - Technique: pipeline to `with`
+    - Matches on whatever you define, better than pipeline
+  - Technique: Move code to struct modules (`defstruct`)
+- Ecto
+  - Use `Repo.aggregate` for counting
+  - Use `Ecto.Multi`
+- Phoenix
+  - Same optimization as in Rails with `get_user` `before_action` callback instead using `plug`
