@@ -1,3 +1,5 @@
+# ElixirConf 2016
+
 ## Intro
 
 - 542 attendees
@@ -125,3 +127,49 @@
 - [elm](http://elm-lang.org/)
 - [Chaos Monkey](https://github.com/Netflix/SimianArmy/wiki/Chaos-Monkey)
 - [principlesofchaos.org](http://principlesofchaos.org/)
+
+## Keynote Jose Valim
+
+- [GenStage](http://github.com/elixir-lang/gen_stage) & Flow
+- Elixir goal's = Eager -> lazy -> concurrent -> distributed
+- Eager: Good for small collection, fails when the set is too big.
+  - Took too long on a big file
+- Lazy: Split the work, don't load in memory, etc. e.g. `File.stream!` instead of `File.read!`
+  - Item by item (folds computation), less memory usage at the cost of computation
+  - Took 60 seconds on 2Gb
+- Concurrent: Using `Flow`
+  - `Flow` uses all cores, spawning processes for each data partition
+  - Give up ordering and process locality for concurrency
+  - Took 36 seconds on double core
+  - It's not magic, overhead when data flows through processes
+  - Requires volume/cpu bound work to benefit
+- Distributed: Papers show that you actually don't need distributed in 40% to 80% of cases with big data.
+  - The gap between concurrent and distributed is really small in Elixir
+- Next thing: durability concerns
+
+#### GenStage | Producer, Consumer, Dispatcher
+
+- [Announcing GenStage](http://elixir-lang.org/blog/2016/07/14/announcing-genstage/)
+- New behavior
+- Could replace `GenEvent`
+- Introduce `DynamicSupervisor`
+- Exchanges data between stages transparently with back-pressure
+- Breaks into producers, consumers and producer/consumer
+- P -> P/C -> P/C -> P/C -> C (each is a stage)
+- Back-pressure means that a stage can tell if it's under too much load (demand-driven)
+- Allows you to never overflow your system
+- See video for an implementation example
+- Consumer can ask halfway through processing for more items from the producer so nothing ever halts
+- `GenStage` Dispatchers: per producer, gets demand and sends data, can dispatch to multiple consumers at once.
+  - Default Dispatcher : Makes sense if you have multiple consumers for a single producer. Dispatcher will send data to the consumer with the highest demand.
+  - BroadcastDispatcher : can reach all consumers regardless of demand.
+  - PartitionDispatcher : splits evenly to each consumer.
+
+#### Flow
+
+- Flow is ~1200 LOC but really only ~80 LOC because it leverages `GenStage`
+- Embraces map/reduce pattern. map -> partition -> reduce -> merge
+- Windows & Triggers (when the data never finishes, e.g. RabbitMQ, Twitter feed)
+  - See [Flow.Window documentation](https://hexdocs.pm/gen_stage/Experimental.Flow.Window.html)
+- Configurable batch size (max & min demand)
+- No distribution nor execution guarantees
