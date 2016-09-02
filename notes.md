@@ -272,3 +272,27 @@
 - `mix help test` and look at `--trace`, `--stale` and `--only`
 - Limit use of setup blocks to get a clear context before assertions
 - [Concurrent feature tests](http://rockwood.me/2016/concurrent-feature-tests-with-phoenix)
+
+## Elixir in Elixir by Jay Hayes
+
+- 78% of Elixir is written in Elixir
+- [elixir-koans](http://elixirkoans.io/)
+- Metaprogramming: The program is data
+- Metaprogramming in Elixir is done with macros. e.g. `defmodule`, `use`, `test`, `assert`
+- Macros accepts a quoted expression and returns a quoted expression
+- `quote: {func, meta, args} (meta could be the module it's defined on)
+  - e.g. `quote do: 2 + 3` => `{:+, [], [2, 3]}`
+  - returns an abstract expression of what is in the block
+- `unquote`: injects a value into a quoted expression
+  ```
+  num = 42
+  quote do: 1 + unquote(num)
+  => {+, [], [1, 42]}
+  ```
+- See talk for example of the `if` macro
+- When should I create a macro? Most cases don't require a macro
+- Use cases
+  - Constants
+  - DSL
+  - Hide details, e.g. `test` in ExUnit
+  - Reduce boilerplate
