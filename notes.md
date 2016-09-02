@@ -254,3 +254,21 @@
   - So your test talks to the browser directly after
   - Your session is setup with Phoenix to be isolated with ownership of transactions all the way to Ecto.
 - Queries & Interactions are pretty much the same as Capybara
+
+## Painless Test Driven Development with Elixir and Phoenix by Kat Tornwall
+
+- [Demo](https://github.com/ktornwall/elixir_conf_2016_demo)
+- Painpoint: Too many tools
+  - Solution: MVP your toolset. ExUnit + Hound
+  - Add tools one-by-one as pain arrises.
+  - [`ex_machina`](https://hexdocs.pm/ex_machina/readme.html) === `FactoryGirl`
+  - `faker` === `faker`
+- Painpoint: Can't find tests
+  - Solution: Match the directory structure of your app
+- Painpoint: DOM coupling in feature tests
+  - Solution: Page Modules to encapsulate interactions with the browser (like PageObject in Rails)
+- Painpoint: Meaningless assertions, e.g. expected true got false
+  - Solution: `defmacro` as in `assert_current_path(assertion)` to fix the error message
+- `mix help test` and look at `--trace`, `--stale` and `--only`
+- Limit use of setup blocks to get a clear context before assertions
+- [Concurrent feature tests](http://rockwood.me/2016/concurrent-feature-tests-with-phoenix)
