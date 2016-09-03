@@ -296,3 +296,7 @@
   - DSL
   - Hide details, e.g. `test` in ExUnit
   - Reduce boilerplate
+
+## Keynote Boyd Multerer
+
+- Why Elixir will be relevant for the next 10 years
